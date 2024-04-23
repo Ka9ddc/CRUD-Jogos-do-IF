@@ -2,8 +2,8 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc.exe build active file",
-            "command": "C:\\mingw64\\bin\\gcc.exe",
+            "label": "C/C++: gdb.exe build active file",
+            "command": "c:\\MinGW\\bin\\gdb.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -12,7 +12,7 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "C:\\mingw64\\bin"
+                "cwd": "c:\\MinGW\\bin"
             },
             "problemMatcher": [
                 "$gcc"
