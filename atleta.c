@@ -15,6 +15,7 @@ Atleta criarAtleta(){
         scanf(" %[^\n]", novoAtleta.instituicaoEnsino);
         printf("Entre com a data de nascimento (DD/MM/AAAA): ");
         scanf("%s", novoAtleta.dataNascimento);
+        novoAtleta.possuiEquipe = false;
 
         atletas[numAtletas++] = novoAtleta;
         printf("Atleta cadastrado com sucesso!\n");
@@ -91,4 +92,21 @@ void deletarAtleta(char* cpf) {
     if (!found) {
         printf("Nenhum atleta encontrado com o CPF %s.\n", cpf);
     }
+}
+
+Atleta * retornarAtleta(char* cpf) {
+    int found = 0;
+    Atleta * atletaRetornado = NULL;
+    for (int i = 0; i < numAtletas; i++) {
+        if (strcmp(atletas[i].cpf, cpf) == 0) {
+            found = 1;
+            atletaRetornado = &atletas[i];
+            return atletaRetornado;
+        }
+    }
+    if (!found) {
+        printf("Nenhum atleta encontrado com o CPF %s.\n", cpf);
+    }
+    
+    return NULL;
 }

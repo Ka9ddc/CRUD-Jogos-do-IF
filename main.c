@@ -94,17 +94,35 @@ int main()
     case 2:
         
         printf("Entre com uma das opcoes abaixo.\n");
-        printf("0  - Cadastrar atleta.\n");
-        printf("1  - Exibir atleta.\n");
-        printf("2  - Atualizar atleta.\n");
-        printf("3  - Remover atleta. \n");
+        printf("0  - Cadastrar equipe.\n");
+        printf("1  - Exibir equipe.\n");
+        printf("2  - Exibir equipes.\n");
+        printf("3  - Atualizar equipe. \n");
+        printf("4  - Remover equipe. \n");
         
         scanf("%d", &opcao2);
         
         switch(opcao2){
             case 0:
+                criarAtleta();
               break;
             case 1:
+                printf("\nDigite o nome da equipe: ");
+                scanf("%s", cpf);
+                exibirAtleta(cpf);
+              break;
+            case 2:
+                exibirAtletas();
+              break;
+            case 3:
+                printf("\nDigite o CPF do atleta: ");
+                scanf("%s", cpf);
+                atualizarAtleta(cpf);
+              break;
+            case 4:
+                printf("\nDigite o CPF do atleta: ");
+                scanf("%s", cpf);
+                deletarAtleta(cpf);
               break;
         }
       break;

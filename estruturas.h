@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 extern int numAtletas;
 extern int numModalidades;
@@ -23,6 +24,7 @@ typedef struct atleta{
     char sexo;
     char instituicaoEnsino[50];
     char dataNascimento[11];
+    bool possuiEquipe;
 } Atleta;
 
 typedef struct modalidade{
@@ -30,8 +32,17 @@ typedef struct modalidade{
     int numAtletasPorEquipe;
 } Modalidade;
 
+typedef struct equipe{
+    char nome[50];
+    char sigla[6];
+    Modalidade *modalidade;
+    int numAtletasEquipe;
+    Atleta *atletas[];
+} Equipe;
+
 extern Atleta atletas[MAX_ATLETAS];
 extern Modalidade modalidades[MAX_MODALIDADES];
+extern Equipe equipes[MAX_EQUIPES];
 
 //Funções Atletas
 
@@ -40,12 +51,20 @@ void exibirAtleta(char *cpf);
 void exibirAtletas();
 void atualizarAtleta(char *cpf);
 void deletarAtleta(char *cpf);
+Atleta * retornarAtleta(char *cpf);
 
 //Funções Modalidades
-Modalidade criarModalidade();
-void exibirModalidade(char *cpf);
+Modalidade * criarModalidade();
+void exibirModalidade(char *nome);
 void exibirModalidades();
-void atualizarModalidade(char *cpf);
-void deletarModalidade(char *cpf);
+void atualizarModalidade(char *nome);
+void deletarModalidade(char *nome);
+Modalidade * retornarModalidade(char *nome);
+
+//Funções Equipes
+void criarEquipe();
+void exibirEquipes();
+void adicionarAtletaEquipe();
+Equipe * retornarEquipe(char *nome);
 
 #endif
