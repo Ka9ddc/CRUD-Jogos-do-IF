@@ -40,9 +40,18 @@ typedef struct equipe{
     Atleta *atletas[];
 } Equipe;
 
+typedef struct torneio{
+    char nome[50];
+    Modalidade *modalidade;
+    int quantidadeEquipesInscritas;
+    int maxEquipes;
+    Equipe *equipes[];
+} Torneio;
+
 extern Atleta atletas[MAX_ATLETAS];
 extern Modalidade modalidades[MAX_MODALIDADES];
 extern Equipe equipes[MAX_EQUIPES];
+extern Torneio torneios[MAX_TORNEIOS];
 
 //Funções Atletas
 
@@ -70,5 +79,7 @@ void adicionarAtletaEquipe(char *nome);
 void removerAtletaEquipe(char *nome);
 void atualizarEquipe(char *nome);
 Equipe * retornarEquipe(char *nome);
+
+//Funções Torneios
 
 #endif

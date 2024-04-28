@@ -141,10 +141,13 @@ int main()
     case 3:
         
         printf("Entre com uma das opcoes abaixo.\n");
-        printf("0  - Cadastrar atleta.\n");
-        printf("1  - Exibir atleta.\n");
-        printf("2  - Atualizar atleta.\n");
-        printf("3  - Remover atleta. \n");
+        printf("0  - Cadastrar torneio.\n");
+        printf("1  - Exibir torneio.\n");
+        printf("2  - Exibir torneios.\n");
+        printf("3  - Atualizar torneio. \n");
+        printf("4  - Deletar torneio. \n");
+        printf("5  - Adicionar equipe ao torneio. \n");
+        printf("6  - Remover equipe do torneio. \n");
         
         scanf("%d", &opcao2);
         
