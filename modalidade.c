@@ -1,5 +1,5 @@
 #include "estruturas.h"
-#include <stdlib.h> // Para alocação dinâmica de memória
+#include <stdlib.h>
 
 Modalidade *criarModalidade() {
     if (numModalidades >= MAX_MODALIDADES) {
@@ -7,7 +7,7 @@ Modalidade *criarModalidade() {
         return NULL;
     }
 
-    Modalidade *novaModalidade = (Modalidade *)malloc(sizeof(Modalidade)); // Aloca memória dinamicamente
+    Modalidade *novaModalidade = (Modalidade *)malloc(sizeof(Modalidade)); 
     if (novaModalidade == NULL) {
         printf("Erro ao alocar memoria para a nova modalidade!");
         return NULL;
@@ -18,7 +18,7 @@ Modalidade *criarModalidade() {
     printf("Entre com o numero de atletas por equipe:\n");
     scanf("%d", &novaModalidade->numAtletasPorEquipe);
 
-    modalidades[numModalidades++] = *novaModalidade; // Copia a nova modalidade para o array
+    modalidades[numModalidades++] = *novaModalidade;
     printf("Modalidade cadastrada com sucesso!");
 
     return novaModalidade;
@@ -50,7 +50,6 @@ void exibirModalidades() {
     }
 }
 
-// Função para atualizar uma modalidade existente
 void atualizarModalidade(char *nome) {
     for (int i = 0; i < numModalidades; i++) {
         if (strcmp(modalidades[i].nome, nome) == 0) {
@@ -66,7 +65,6 @@ void atualizarModalidade(char *nome) {
     printf("Nenhuma modalidade com esse nome foi encontrada!");
 }
 
-// Função para excluir uma modalidade existente
 void deletarModalidade(char *nome) {
     int found = 0;
     for (int i = 0; i < numModalidades; i++) {

@@ -46,11 +46,11 @@ extern Equipe equipes[MAX_EQUIPES];
 
 //Funções Atletas
 
-Atleta criarAtleta();
 void exibirAtleta(char *cpf);
 void exibirAtletas();
 void atualizarAtleta(char *cpf);
 void deletarAtleta(char *cpf);
+Atleta criarAtleta();
 Atleta * retornarAtleta(char *cpf);
 
 //Funções Modalidades
@@ -63,8 +63,12 @@ Modalidade * retornarModalidade(char *nome);
 
 //Funções Equipes
 void criarEquipe();
+void deletarEquipe(char *nome);
+void exibirEquipe(char *nome);
 void exibirEquipes();
-void adicionarAtletaEquipe();
+void adicionarAtletaEquipe(char *nome);
+void removerAtletaEquipe(char *nome);
+void atualizarEquipe(char *nome);
 Equipe * retornarEquipe(char *nome);
 
 #endif

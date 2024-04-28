@@ -6,7 +6,7 @@
 int main()
 {
   int elem, continua=1, opcao, opcao2, chave;
-  char cpf[20], nomeModalidade[50];
+  char cpf[20], nomeModalidade[50], nomeEquipe[50];
 
   while (continua) { 
 
@@ -98,31 +98,43 @@ int main()
         printf("1  - Exibir equipe.\n");
         printf("2  - Exibir equipes.\n");
         printf("3  - Atualizar equipe. \n");
-        printf("4  - Remover equipe. \n");
+        printf("4  - Deletar equipe. \n");
+        printf("5  - Adicionar atleta a equipe. \n");
+        printf("6  - Remover atleta da equipe. \n");
         
         scanf("%d", &opcao2);
         
         switch(opcao2){
             case 0:
-                criarAtleta();
+                criarEquipe();
               break;
             case 1:
                 printf("\nDigite o nome da equipe: ");
-                scanf("%s", cpf);
-                exibirAtleta(cpf);
+                scanf(" %[^\n]", nomeEquipe);
+                exibirEquipe(nomeEquipe);
               break;
             case 2:
-                exibirAtletas();
+                exibirEquipes();
               break;
             case 3:
-                printf("\nDigite o CPF do atleta: ");
-                scanf("%s", cpf);
-                atualizarAtleta(cpf);
+                printf("\nDigite o nome da equipe: ");
+                scanf(" %[^\n]", nomeEquipe);
+                atualizarEquipe(nomeEquipe);
               break;
             case 4:
-                printf("\nDigite o CPF do atleta: ");
-                scanf("%s", cpf);
-                deletarAtleta(cpf);
+                printf("\nDigite o nome da equipe: ");
+                scanf(" %[^\n]", nomeEquipe);
+                deletarEquipe(nomeEquipe);
+              break;
+            case 5:
+                printf("\nDigite o nome da equipe: ");
+                scanf(" %[^\n]", nomeEquipe);
+                adicionarAtletaEquipe(nomeEquipe);
+              break;
+            case 6:
+                printf("\nDigite o nome da equipe: ");
+                scanf(" %[^\n]", nomeEquipe);
+                removerAtletaEquipe(nomeEquipe);
               break;
         }
       break;
