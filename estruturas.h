@@ -18,6 +18,19 @@ extern int numEquipes;
 extern int numTorneios;
 extern int numJogos;
 
+typedef struct {
+    int dia;
+    int mes;
+    int ano;
+    int hora;
+    int minuto;
+} DataHora;
+
+typedef struct {
+    int pontosTime1;
+    int pontosTime2;
+} Placar;
+
 typedef struct atleta{
     char nome[50];
     char cpf[15];
@@ -48,10 +61,20 @@ typedef struct torneio{
     Equipe *equipes[];
 } Torneio;
 
+typedef struct jogo{
+    Torneio *torneio;
+    Equipe *primeiraEquipe;
+    Equipe *segundaEquipe;
+    DataHora *dataHora;
+    Placar *placar;
+    char id[50];
+} Jogo;
+
 extern Atleta atletas[MAX_ATLETAS];
 extern Modalidade modalidades[MAX_MODALIDADES];
 extern Equipe equipes[MAX_EQUIPES];
 extern Torneio torneios[MAX_TORNEIOS];
+exter Jogo jogos[MAX_JOGOS];
 
 //Funções Atletas
 
@@ -81,5 +104,16 @@ void atualizarEquipe(char *nome);
 Equipe * retornarEquipe(char *nome);
 
 //Funções Torneios
+void criarTorneio();
+void deletarTorneio(char *nome);
+void exibirTorneio(char *nome);
+void exibirTorneios();
+void adicionarEquipeTorneio(char *nome);
+void removerEquipeTorneio(char *nome);
+void atualizarTorneio(char *nome);
+Torneio * retornarTorneio(char *nome);
+
+//Funções Jogos
+
 
 #endif

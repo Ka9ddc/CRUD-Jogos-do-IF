@@ -29,3 +29,7 @@ Macacos
 5
 Macacos
 25
+3
+0
+jogos
+corrida

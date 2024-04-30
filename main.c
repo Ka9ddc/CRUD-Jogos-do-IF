@@ -6,7 +6,7 @@
 int main()
 {
   int elem, continua=1, opcao, opcao2, chave;
-  char cpf[20], nomeModalidade[50], nomeEquipe[50];
+  char cpf[20], nomeModalidade[50], nomeEquipe[50], nomeTorneio[50];
 
   while (continua) { 
 
@@ -153,17 +153,46 @@ int main()
         
         switch(opcao2){
             case 0:
+                criarTorneio();
               break;
             case 1:
+                printf("\nDigite o nome do torneio: ");
+                scanf(" %[^\n]", nomeTorneio);
+                exibirTorneio(nomeTorneio);
+              break;
+            case 2:
+                exibirTorneios();
+              break;
+            case 3:
+                printf("\nDigite o nome do torneio: ");
+                scanf(" %[^\n]", nomeTorneio);
+                atualizarTorneio(nomeTorneio);
+              break;
+            case 4:
+                printf("\nDigite o nome do torneio: ");
+                scanf(" %[^\n]", nomeTorneio);
+                deletarTorneio(nomeTorneio);
+              break;
+            case 5:
+                printf("\nDigite o nome do torneio: ");
+                scanf(" %[^\n]", nomeTorneio);
+                adicionarEquipeTorneio(nomeTorneio);
+              break;
+            case 6:
+                printf("\nDigite o nome do torneio: ");
+                scanf(" %[^\n]", nomeTorneio);
+                removerEquipeTorneio(nomeTorneio);
               break;
         }
+        break;
     case 4:
         
         printf("Entre com uma das opcoes abaixo.\n");
-        printf("0  - Cadastrar atleta.\n");
-        printf("1  - Exibir atleta.\n");
-        printf("2  - Atualizar atleta.\n");
-        printf("3  - Remover atleta. \n");
+        printf("0  - Cadastrar jogo.\n");
+        printf("1  - Exibir jogo.\n");
+        printf("1  - Exibir jogos do torneio.\n");
+        printf("2  - Atualizar jogo.\n");
+        printf("3  - Remover jogo. \n");
         
         scanf("%d", &opcao2);
         

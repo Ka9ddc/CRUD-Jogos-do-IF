@@ -2,13 +2,15 @@
 
 #include "estruturas.h"
 
-void criarTorneio() {
-    if (numTorneios >= MAX_TORNEIOS) {
-        printf("\nO numero maximo de torneios foi alcançado!\n");
+void criarJogo() {
+    if (numJogos >= MAX_JOGOS) {
+        printf("\nO numero maximo de jogos foi alcançado!\n");
     } else {
         char nomeModalidade[TAMANHO];
-        Modalidade *modalidade;
-        Torneio novoTorneio;
+        Torneio *torneio;
+        Equipe *equipe1;
+        Equipe *equipe2;
+        Jogo novoJogo;
         printf("\nDigite o nome do torneio: ");
         scanf(" %[^\n]", novoTorneio.nome);
         printf("\nDigite a modalidade do torneio");
