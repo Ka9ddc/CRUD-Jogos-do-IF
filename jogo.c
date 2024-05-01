@@ -2,171 +2,230 @@
 
 #include "estruturas.h"
 
+DataHora * criarDataHora() {
+    DataHora *dataHora = malloc(sizeof(DataHora)); // Aloca memória para a estrutura
+    if (dataHora == NULL) {
+        printf("Erro de alocação de memória.\n");
+        exit(1);
+    }
+
+    printf("Digite a data e hora no formato AAAA-MM-DD HH:MM: ");
+    scanf("%d-%d-%d %d:%d", &dataHora->ano, &dataHora->mes, &dataHora->dia, &dataHora->hora, &dataHora->minuto);
+    
+    sprintf(dataHora->dataFormatada, "%04d-%02d-%02d %02d:%02d",
+            dataHora->ano,
+            dataHora->mes,
+            dataHora->dia,
+            dataHora->hora,
+            dataHora->minuto);
+
+    if (dataHora->ano < 1000 || dataHora->ano > 9999 || dataHora->mes < 1 || dataHora->mes > 12 || dataHora->dia < 1 || dataHora->dia > 31 ||
+        dataHora->hora < 0 || dataHora->hora > 23 || dataHora->minuto < 0 || dataHora->minuto > 59) {
+        printf("Valores fornecidos fora da especificação.\n");
+        free(dataHora); // Libera a memória alocada antes de retornar NULL
+        return NULL;
+    }
+
+    return dataHora;
+}
+
+Placar * criarPlacar(Jogo *jogo){
+    Placar *novoPlacar = malloc(sizeof(Placar)); // Aloca memória para a estrutura
+    if (novoPlacar == NULL) {
+        printf("Erro de alocação de memória.\n");
+        exit(1);
+    }
+
+    novoPlacar->pontosTime1 = 0;
+    novoPlacar->pontosTime2 = 0;
+    
+    sprintf(novoPlacar->placarFormatado, "%s: %d x %s: %d",
+        jogo->primeiraEquipe->sigla,
+        novoPlacar->pontosTime1,
+        jogo->segundaEquipe->sigla,
+        novoPlacar->pontosTime2);
+    
+    return novoPlacar;
+}
+
+void gerarId(Jogo *jogo){
+    char id[50];
+    sprintf(id, "%s x %s %04d-%02d-%02d %02d:%02d",
+            jogo->primeiraEquipe->sigla,
+            jogo->segundaEquipe->sigla,
+            jogo->dataHora->ano,
+            jogo->dataHora->mes,
+            jogo->dataHora->dia,
+            jogo->dataHora->hora,
+            jogo->dataHora->minuto);
+    strncpy(jogo->id, id, sizeof(jogo->id));
+}
+
 void criarJogo() {
     if (numJogos >= MAX_JOGOS) {
         printf("\nO numero maximo de jogos foi alcançado!\n");
     } else {
-        char nomeModalidade[TAMANHO];
+        char nomeTorneio[TAMANHO];
+        char siglaEquipe[TAMANHO];
         Torneio *torneio;
         Equipe *equipe1;
         Equipe *equipe2;
-        Jogo novoJogo;
+        DataHora *dataHora;
+        Jogo novoJogo; // Agora não é mais um ponteiro
+
         printf("\nDigite o nome do torneio: ");
-        scanf(" %[^\n]", novoTorneio.nome);
-        printf("\nDigite a modalidade do torneio");
-        scanf(" %[^\n]", nomeModalidade);
-        modalidade = retornarModalidade(nomeModalidade);
-        if (!modalidade) {
-            printf("Essa modalidade não existe!");
-        } else {
-            novoTorneio.modalidade = modalidade;
-            novoTorneio.quantidadeEquipesInscritas = 0;
-            novoTorneio.maxEquipes = 8;
-            torneios[numTorneios++] = novoTorneio;
-            printf("\nTorneio criado!\n");
+        scanf(" %[^\n]", nomeTorneio);
+        torneio = retornarTorneio(nomeTorneio);
+        if(!torneio){
+            printf("\nNenhum torneio encontrado com o nome fornecido!\n");
+            return;
         }
-    }
-}
-
-Torneio * retornarTorneio(char* nome) {
-    int found = 0;
-    Torneio * torneioRetornado = NULL;
-    for (int i = 0; i < numTorneios; i++) {
-        if (strcmp(torneios[i].nome, nome) == 0) {
-            found = 1;
-            torneioRetornado = &torneios[i];
-            return torneioRetornado;
+        printf("\nDigite a sigla da primeira equipe do jogo: ");
+        scanf(" %[^\n]", siglaEquipe);
+        equipe1 = retornarEquipe(siglaEquipe);
+        if(!equipe1){
+            printf("\nNenhuma equipe encontrada com a sigla fornecida!\n");
+            return;
         }
-    }
-    if (!found) {
-        printf("Nenhum torneio encontrado com o nome: %s.\n", nome);
-    }
-    
-    return NULL;
-}
-
-void exibirTorneio(char *nome){
-    Torneio *torneio;
-    torneio = retornarTorneio(nome);
-    if(torneio){
-        printf("\nNome da equipe: %s\n", torneio->nome);
-        printf("\nModalidade da equipe: %s\n", torneio->modalidade->nome);
-        printf("\nAtletas da equipe: \n");
-        for (int i = 0; i < torneio->quantidadeEquipesInscritas; i++)
-        {
-            printf("%s\n", torneio->equipes[i]->nome);
+        printf("\nDigite a sigla da segunda equipe do jogo: ");
+        scanf(" %[^\n]", siglaEquipe);
+        equipe2 = retornarEquipe(siglaEquipe);
+        if(!equipe2){
+            printf("\nNenhuma equipe encontrada com a sigla fornecida!\n");
+            return;
+        }
+        dataHora = criarDataHora();
+        if(!dataHora){
+            return;
         }
         
+        novoJogo.torneio = torneio;
+        novoJogo.primeiraEquipe = equipe1;
+        novoJogo.segundaEquipe = equipe2;
+        novoJogo.dataHora = dataHora;
+        novoJogo.placar = criarPlacar(&novoJogo);
+        gerarId(&novoJogo);
+        jogos[numJogos++] = novoJogo;
+        printf("\nJogo criado!\n");
+        
+        printf("\nID do jogo: %s\n", novoJogo.id);
+        printf("\nNome do torneio: %s\n", novoJogo.torneio->nome);
+        printf("\nPrimeira Equipe: %s\n", novoJogo.primeiraEquipe->nome);
+        printf("\nSegunda Equipe: %s\n", novoJogo.segundaEquipe->nome);
+        printf("\nData do jogo: %s\n", novoJogo.dataHora->dataFormatada);
+        printf("\nPlacar do jogo: %s\n", novoJogo.placar->placarFormatado);
     }
-
 }
 
-
-void exibirTorneios() {
-    for (int i = 0; i < numTorneios; i++) {
-        printf("\nNome do torneio: %s\n", torneios[i].nome);
-        printf("Modalidade do torneio: %s\n", torneios[i].modalidade->nome);
-        printf("Equipes do torneio:\n");
-        for (int j = 0; j < torneios[i].quantidadeEquipesInscritas; j++) {
-            printf("%s\n", torneios[i].equipes[j]->nome); 
-        }
-    }
-}
-
-void atualizarTorneio(char *nome) {
+void exibirJogo(char *id){
     int found = 0;
-    char nomeModalidade[TAMANHO];
-    for (int i = 0; i < numTorneios; i++)
-    {
-        if(strcmp(torneios[i].nome, nome) == 0){
-            printf("\n---FORMULARIO PARA ATUALIZAR TORNEIO---\n");
-            printf("\nDigite o nome do torneio: ");
-            scanf(" %[^\n]", torneios[i].nome);
-            printf("\nDigite a modalidade do torneio: ");
-            scanf(" %[^\n]", nomeModalidade);
-            if(!retornarModalidade(nomeModalidade)){
-                printf("\nModalidade inválida!\n");
-            } else {
-                torneios[i].modalidade = retornarModalidade(nomeModalidade);
-            }
+    for(int i = 0; i < numJogos; i++){
+        if(strcmp(jogos[i].id, id) == 0){
+            printf("\nTorneio: %s\n", jogos[i].torneio->nome);
+            printf("Data: %s\n", jogos[i].data->dataFormatada);
+            printf("Placar: %s\n", jogos[i].placar->placarFormatado);
             found = 1;
-            printf("Torneio atualizado com sucesso!");
             break;
         }
     }
     if(!found){
-        printf("\nNenhum torneio com o nome fornecido foi encontrada!\n");
+        printf("\nNão foi encontrado nenhum jogo com o id fornecido!\n");
     }
-    
 }
 
-void deletarTorneio(char *nome) {
-    int found = 0;
-    for (int i = 0; i < numTorneios; i++)
-    {
-        if(strcmp(torneios[i].nome, nome) == 0){
-            for (int j = i; j < numTorneios - 1; j++)
-            {
-                torneios[j] = torneios[j+1];
+void exibirJogos(){
+    for(int i = 0; i < numJogos; i++){
+            printf("\nTorneio: %s\n", jogos[i].torneio->nome);
+            printf("Data: %s\n", jogos[i].data->dataFormatada);
+            printf("Placar: %s\n", jogos[i].placar->placarFormatado);
+        }
+    }
+}
+
+void atualizarJogo(char *id){
+        char nomeTorneio[TAMANHO];
+        char siglaEquipe[TAMANHO];
+        Torneio *torneio;
+        Equipe *equipe1;
+        Equipe *equipe2;
+        DataHora *dataHora;
+        int found = 0;
+        
+    for(int i = 0; i < numJogos; i++){
+        if(strcmp(jogos[i].id, id) == 0){
+            printf("---FORMULARIO PARA ATUALIZAR JOGO---");
+            printf("\nDigite o nome do torneio: ");
+            scanf(" %[^\n]", nomeTorneio);
+            torneio = retornarTorneio(nomeTorneio);
+            if(!torneio){
+                printf("\nNenhum torneio encontrado com o nome fornecido!\n");
+                return;
             }
-            numTorneios--;
+            printf("\nDigite a sigla da primeira equipe do jogo: ");
+        scanf(" %[^\n]", siglaEquipe);
+        equipe1 = retornarEquipe(siglaEquipe);
+        if(!equipe1){
+            printf("\nNenhuma equipe encontrada com a sigla fornecida!\n");
+            return;
+        }
+        printf("\nDigite a sigla da segunda equipe do jogo: ");
+        scanf(" %[^\n]", siglaEquipe);
+        equipe2 = retornarEquipe(siglaEquipe);
+        if(!equipe2){
+            printf("\nNenhuma equipe encontrada com a sigla fornecida!\n");
+            return;
+        }
+        dataHora = criarDataHora();
+        if(!dataHora){
+            return;
+        }
+        
+        jogos[i].torneio = torneio;
+        jogos[i].primeiraEquipe = equipe1;
+        jogos[i].segundaEquipe = equipe2;
+        jogos[i].dataHora = dataHora;
+        jogos[i].placar = criarPlacar(&novoJogo);
+        gerarId(&jogos[i]);
+        printf("\nJogo atualizado!\n");
+            
+        }
+    }
+}
+
+void deletarJogo(char *id) {
+    int found = 0;
+    for(int i = 0; i < numJogos; i++)
+    {
+        if(strcmp(jogos[i].id, id) == 0){
+            for (int j = i; j < numJogos - 1; j++)
+            {
+                jogos[j] = jogos[j+1];
+            }
+            numJogos--;
             found = 1;
-            printf("Torneio deletado com sucesso!");
+            printf("\nJogo deletado com sucesso!\n");
         }
     }
     if(!found){
-        printf("\nNenhum torneio com o nome fornecido foi encontrada!\n");
-    }
-    
-}
-
-void adicionarEquipeTorneio(char *nome) {
-    Torneio *torneio;
-    torneio = retornarTorneio(nome); 
-    if (!torneio) {
-        printf("\nNenhum torneio com esse nome foi encontrada!\n");
-        return;
-    }
-
-    if (torneio->quantidadeEquipesInscritas >= torneio->maxEquipes) {
-        printf("\nO numero maximo de equipes nesse torneio foi alcançado!\n");
-    } else {
-        char sigla[TAMANHO];
-        Equipe *adicionarEquipe;
-        printf("\nDigite a sigla da equipe a ser adicionada: ");
-        scanf(" %[^\n]", sigla);
-        adicionarEquipe = retornarEquipe(sigla);
-        if (!adicionarEquipe) {
-            printf("Equipe não encontrada!");
-        } else {
-            torneio->equipes[torneio->quantidadeEquipesInscritas++] = adicionarEquipe;
-            printf("Equipe adicionada a equipe com sucesso!");
-        }
+        printf("\nNenhum jogo com o id fornecido foi encontrado!\n");
     }
 }
 
-void removerEquipeTorneio(char *nome){
+void atualizarPlacar(char *id){
     int found = 0;
-    char nomeEquipe[TAMANHO];
-    Torneio *torneio;
-    torneio = retornarTorneio(nome);
-    if(!torneio){
-        
-    } else {
-        printf("\nDigite o nome da equipe a ser removida: ");
-        scanf(" %[^\n]", nomeEquipe);
-        for(int i = 0; i < torneio->quantidadeEquipesInscritas; i++){
-            if(strcmp(nomeEquipe, torneio->equipes[i]->nome) == 0){
-                printf("\nA equipe a ser removida é: %s\n", torneio->equipes[i]->nome);
-                for (int j = i; j < torneio->quantidadeEquipesInscritas - 2; j++)
-                {
-                    torneio->equipes[j] = torneio->equipes[j+1];
-                }
-                found = 1;
-                torneio->quantidadeEquipesInscritas--;
-                printf("\nEquipe removida com sucesso!\n");
-                break;
-            }
+    for(int i = 0; i < numJogos; i++){
+        if(strcmp(jogos[i].id, id) == 0){
+            printf("\n---ATUALIZAÇAO DE PLACAR---\n");
+            printf("\nDigite a pontuaçao para %s: ", jogos[i].primeiraEquipe->sigla);
+            scanf("%d", jogos[i].placar->pontosTime1);
+            printf("\nDigite a pontuaçao para %s: ", jogos[i].segundaEquipe->sigla);
+            scanf("%d", jogos[i].placar->pontosTime2);
+            sprintf(jogos[i].placar->placarFormatado, "%s: %d x %s: %d",
+            jogos[i].primeiraEquipe->sigla,
+            jogos[i].placar->pontosTime1,
+            jogos[i].placar->segundaEquipe->sigla,
+            jogos[i].placar->pontosTime2);
+            printf("\nPlacar atualizado com sucesso: %s\n", jogos[i].placar->placarFormatado);
         }
     }
 }

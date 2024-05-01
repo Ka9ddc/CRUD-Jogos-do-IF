@@ -24,11 +24,13 @@ typedef struct {
     int ano;
     int hora;
     int minuto;
+    char dataFormatada[50];
 } DataHora;
 
 typedef struct {
     int pontosTime1;
     int pontosTime2;
+    char placarFormatado[50];
 } Placar;
 
 typedef struct atleta{
@@ -67,14 +69,14 @@ typedef struct jogo{
     Equipe *segundaEquipe;
     DataHora *dataHora;
     Placar *placar;
-    char id[50];
+    char id[100];
 } Jogo;
 
 extern Atleta atletas[MAX_ATLETAS];
 extern Modalidade modalidades[MAX_MODALIDADES];
 extern Equipe equipes[MAX_EQUIPES];
 extern Torneio torneios[MAX_TORNEIOS];
-exter Jogo jogos[MAX_JOGOS];
+extern Jogo jogos[MAX_JOGOS];
 
 //Funções Atletas
 
@@ -114,6 +116,6 @@ void atualizarTorneio(char *nome);
 Torneio * retornarTorneio(char *nome);
 
 //Funções Jogos
-
+void criarJogo();
 
 #endif

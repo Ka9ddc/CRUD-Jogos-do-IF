@@ -27,26 +27,26 @@ void criarEquipe() {
     }
 }
 
-Equipe * retornarEquipe(char* nome) {
+Equipe * retornarEquipe(char* sigla) {
     int found = 0;
     Equipe * equipeRetornada = NULL;
     for (int i = 0; i < numEquipes; i++) {
-        if (strcmp(equipes[i].nome, nome) == 0) {
+        if (strcmp(equipes[i].sigla, sigla) == 0) {
             found = 1;
             equipeRetornada = &equipes[i];
             return equipeRetornada;
         }
     }
     if (!found) {
-        printf("Nenhuma equipe encontrado com o nome: %s.\n", nome);
+        printf("Nenhuma equipe encontrado com a sigla: %s.\n", sigla);
     }
     
     return NULL;
 }
 
-void exibirEquipe(char *nome){
+void exibirEquipe(char *sigla){
     Equipe *equipe;
-    equipe = retornarEquipe(nome);
+    equipe = retornarEquipe(sigla);
     if(equipe){
         printf("\nNome da equipe: %s\n", equipe->nome);
         printf("\nSigla da equipe: %s\n", equipe->sigla);
@@ -74,12 +74,12 @@ void exibirEquipes() {
     }
 }
 
-void atualizarEquipe(char *nome) {
+void atualizarEquipe(char *sigla) {
     int found = 0;
     char nomeModalidade[TAMANHO];
     for (int i = 0; i < numEquipes; i++)
     {
-        if(strcmp(equipes[i].nome, nome) == 0){
+        if(strcmp(equipes[i].sigla, sigla) == 0){
             printf("\n---FORMULARIO PARA ATUALIZAR EQUIPE---\n");
             printf("\nDigite o nome da equipe:");
             scanf(" %[^\n]", equipes[i].nome);
@@ -98,17 +98,17 @@ void atualizarEquipe(char *nome) {
         }
     }
     if(!found){
-        printf("\nNenhuma equipe com o nome fornecido foi encontrada!\n");
+        printf("\nNenhuma equipe com a sigla fornecida foi encontrada!\n");
     }
     
 }
 
-void deletarEquipe(char *nome) {
+void deletarEquipe(char *sigla) {
     int found = 0;
     char nomeModalidade[TAMANHO];
     for (int i = 0; i < numEquipes; i++)
     {
-        if(strcmp(equipes[i].nome, nome) == 0){
+        if(strcmp(equipes[i].sigla, sigla) == 0){
             for (int j = i; j < numEquipes - 1; j++)
             {
                 equipes[j] = equipes[j+1];
@@ -119,16 +119,15 @@ void deletarEquipe(char *nome) {
         }
     }
     if(!found){
-        printf("\nNenhuma equipe com o nome fornecido foi encontrada!\n");
+        printf("\nNenhuma equipe com a sigla fornecida foi encontrada!\n");
     }
     
 }
 
-void adicionarAtletaEquipe(char *nome) {
+void adicionarAtletaEquipe(char *sigla) {
     Equipe *equipe;
-    equipe = retornarEquipe(nome); 
+    equipe = retornarEquipe(sigla); 
     if (!equipe) {
-        printf("\nNenhuma equipe com esse nome foi encontrada!\n");
         return;
     }
 
@@ -152,11 +151,14 @@ void adicionarAtletaEquipe(char *nome) {
     }
 }
 
-void removerAtletaEquipe(char *nome){
+void removerAtletaEquipe(char *sigla){
     int found = 0;
     char cpf[TAMANHO];
     Equipe *equipe;
-    equipe = retornarEquipe(nome);
+    equipe = retornarEquipe(sigla);
+    if(!equipe){
+        return;
+    }
     printf("\nDigite o CPF do atleta a ser removido: ");
     scanf(" %[^\n]", cpf);
     for(int i = 0; i < equipe->numAtletasEquipe; i++){

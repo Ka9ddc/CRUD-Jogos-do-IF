@@ -198,6 +198,7 @@ int main()
         
         switch(opcao2){
             case 0:
+              criarJogo();
               break;
             case 1:
               break;
