@@ -29,7 +29,7 @@ unopar
 1
 0
 corrida
-2
+10
 2
 0
 Macacos

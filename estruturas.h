@@ -69,7 +69,7 @@ typedef struct jogo{
     Equipe *segundaEquipe;
     DataHora *dataHora;
     Placar *placar;
-    char id[100];
+    char id[50];
 } Jogo;
 
 extern Atleta atletas[MAX_ATLETAS];

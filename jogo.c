@@ -122,7 +122,7 @@ void exibirJogo(char *id){
     for(int i = 0; i < numJogos; i++){
         if(strcmp(jogos[i].id, id) == 0){
             printf("\nTorneio: %s\n", jogos[i].torneio->nome);
-            printf("Data: %s\n", jogos[i].data->dataFormatada);
+            printf("Data: %s\n", jogos[i].dataHora->dataFormatada);
             printf("Placar: %s\n", jogos[i].placar->placarFormatado);
             found = 1;
             break;
@@ -136,11 +136,10 @@ void exibirJogo(char *id){
 void exibirJogos(){
     for(int i = 0; i < numJogos; i++){
             printf("\nTorneio: %s\n", jogos[i].torneio->nome);
-            printf("Data: %s\n", jogos[i].data->dataFormatada);
+            printf("Data: %s\n", jogos[i].dataHora->dataFormatada);
             printf("Placar: %s\n", jogos[i].placar->placarFormatado);
         }
     }
-}
 
 void atualizarJogo(char *id){
         char nomeTorneio[TAMANHO];
@@ -184,7 +183,7 @@ void atualizarJogo(char *id){
         jogos[i].primeiraEquipe = equipe1;
         jogos[i].segundaEquipe = equipe2;
         jogos[i].dataHora = dataHora;
-        jogos[i].placar = criarPlacar(&novoJogo);
+        jogos[i].placar = criarPlacar(&jogos[i]);
         gerarId(&jogos[i]);
         printf("\nJogo atualizado!\n");
             
@@ -217,13 +216,13 @@ void atualizarPlacar(char *id){
         if(strcmp(jogos[i].id, id) == 0){
             printf("\n---ATUALIZAÇAO DE PLACAR---\n");
             printf("\nDigite a pontuaçao para %s: ", jogos[i].primeiraEquipe->sigla);
-            scanf("%d", jogos[i].placar->pontosTime1);
+            scanf("%d", &jogos[i].placar->pontosTime1);
             printf("\nDigite a pontuaçao para %s: ", jogos[i].segundaEquipe->sigla);
-            scanf("%d", jogos[i].placar->pontosTime2);
+            scanf("%d", &jogos[i].placar->pontosTime2);
             sprintf(jogos[i].placar->placarFormatado, "%s: %d x %s: %d",
             jogos[i].primeiraEquipe->sigla,
             jogos[i].placar->pontosTime1,
-            jogos[i].placar->segundaEquipe->sigla,
+            jogos[i].segundaEquipe->sigla,
             jogos[i].placar->pontosTime2);
             printf("\nPlacar atualizado com sucesso: %s\n", jogos[i].placar->placarFormatado);
         }
