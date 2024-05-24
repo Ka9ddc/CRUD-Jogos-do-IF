@@ -2,28 +2,41 @@
 
 #include "estruturas.h"
 
-void criarTorneio() {
+Torneio * criarTorneio() {
     if (numTorneios >= MAX_TORNEIOS) {
         printf("\nO numero maximo de torneios foi alcançado!\n");
-    } else {
-        char nomeModalidade[TAMANHO];
-        Modalidade *modalidade;
-        Torneio novoTorneio;
-        printf("\nDigite o nome do torneio: ");
-        scanf(" %[^\n]", novoTorneio.nome);
-        printf("\nDigite a modalidade do torneio");
-        scanf(" %[^\n]", nomeModalidade);
-        modalidade = retornarModalidade(nomeModalidade);
-        if (!modalidade) {
-            printf("Essa modalidade não existe!");
-        } else {
-            novoTorneio.modalidade = modalidade;
-            novoTorneio.quantidadeEquipesInscritas = 0;
-            novoTorneio.maxEquipes = 8;
-            torneios[numTorneios++] = novoTorneio;
-            printf("\nTorneio criado!\n");
-        }
+        return NULL;
     }
+    
+    Torneio *novoTorneio = (Torneio*) malloc(sizeof(Torneio));
+    
+    if(!novoTorneio){
+        printf("\nErro ao alocar memoria!\n");
+        return NULL;
+    }
+    
+    for (int i = 0; i < 8; i++) {
+        novoTorneio->equipes[i] = NULL;  // Inicializa todos os ponteiros de atletas como NULL
+    }
+    
+    char nomeModalidade[TAMANHO];
+    Modalidade *modalidade;
+    printf("\nDigite o nome do torneio: ");
+    scanf(" %[^\n]", novoTorneio->nome);
+    printf("\nDigite a modalidade do torneio");
+    scanf(" %[^\n]", nomeModalidade);
+    modalidade = retornarModalidade(nomeModalidade);
+    if (!modalidade) {
+        printf("Essa modalidade não existe!");
+    } else {
+        novoTorneio->modalidade = modalidade;
+        novoTorneio->quantidadeEquipesInscritas = 0;
+        novoTorneio->maxEquipes = 8;
+        torneios[numTorneios++] = *novoTorneio;
+        printf("\nTorneio criado!\n");
+    }
+    
+    return novoTorneio;
 }
 
 Torneio * retornarTorneio(char* nome) {
@@ -61,14 +74,16 @@ void exibirTorneio(char *nome){
 
 
 void exibirTorneios() {
+    printf("\n------------ TORNEIOS ------------\n");
     for (int i = 0; i < numTorneios; i++) {
         printf("\nNome do torneio: %s\n", torneios[i].nome);
         printf("Modalidade do torneio: %s\n", torneios[i].modalidade->nome);
         printf("Equipes do torneio:\n");
         for (int j = 0; j < torneios[i].quantidadeEquipesInscritas; j++) {
-            printf("%s\n", torneios[i].equipes[j]->nome); 
+            printf("\t%s\n", torneios[i].equipes[j]->nome); 
         }
     }
+    printf("\n------------ FIM TORNEIOS ------------\n");
 }
 
 void atualizarTorneio(char *nome) {
@@ -119,8 +134,7 @@ void deletarTorneio(char *nome) {
 }
 
 void adicionarEquipeTorneio(char *nome) {
-    Torneio *torneio;
-    torneio = retornarTorneio(nome); 
+    Torneio *torneio = retornarTorneio(nome);
     if (!torneio) {
         printf("\nNenhum torneio com esse nome foi encontrada!\n");
         return;

@@ -47,12 +47,12 @@ typedef struct modalidade{
     int numAtletasPorEquipe;
 } Modalidade;
 
-typedef struct equipe{
+typedef struct equipe {
     char nome[50];
     char sigla[6];
     Modalidade *modalidade;
     int numAtletasEquipe;
-    Atleta *atletas[];
+    Atleta **atletas;  // Ponteiro para array de ponteiros de atletas
 } Equipe;
 
 typedef struct torneio{
@@ -60,7 +60,7 @@ typedef struct torneio{
     Modalidade *modalidade;
     int quantidadeEquipesInscritas;
     int maxEquipes;
-    Equipe *equipes[];
+    Equipe *equipes[8];
 } Torneio;
 
 typedef struct jogo{
@@ -84,7 +84,7 @@ void exibirAtleta(char *cpf);
 void exibirAtletas();
 void atualizarAtleta(char *cpf);
 void deletarAtleta(char *cpf);
-Atleta criarAtleta();
+void criarAtleta();
 Atleta * retornarAtleta(char *cpf);
 
 //Funções Modalidades
@@ -106,7 +106,7 @@ void atualizarEquipe(char *nome);
 Equipe * retornarEquipe(char *nome);
 
 //Funções Torneios
-void criarTorneio();
+Torneio * criarTorneio();
 void deletarTorneio(char *nome);
 void exibirTorneio(char *nome);
 void exibirTorneios();
@@ -117,5 +117,11 @@ Torneio * retornarTorneio(char *nome);
 
 //Funções Jogos
 void criarJogo();
+void exibirJogos();
+void exibirJogo(char *id);
+void atualizarJogo(char *id);
+void deletarJogo(char *id);
+void atualizarPlacar(char *id);
+
 
 #endif

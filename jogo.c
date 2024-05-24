@@ -105,6 +105,12 @@ void criarJogo() {
         novoJogo.dataHora = dataHora;
         novoJogo.placar = criarPlacar(&novoJogo);
         gerarId(&novoJogo);
+        for(int i = 0; i < numJogos; i++){
+            if(strcmp(novoJogo.id, jogos[i].id) == 0){
+                printf("\nJa existe um jogo com esse ID\n");
+                return;
+            }
+        }
         jogos[numJogos++] = novoJogo;
         printf("\nJogo criado!\n");
         
@@ -134,11 +140,17 @@ void exibirJogo(char *id){
 }
 
 void exibirJogos(){
+    char nomeTorneio[50];
+    printf("\nDigite o nome do torneio: ");
+    scanf(" %[^\n]", nomeTorneio);
+    printf("\n------------ JOGOS DO TORNEIO: %s ------------\n", nomeTorneio);
     for(int i = 0; i < numJogos; i++){
-            printf("\nTorneio: %s\n", jogos[i].torneio->nome);
-            printf("Data: %s\n", jogos[i].dataHora->dataFormatada);
-            printf("Placar: %s\n", jogos[i].placar->placarFormatado);
+            if(strcmp(jogos[i].torneio->nome, nomeTorneio) == 0){
+                printf("Data: %s\n", jogos[i].dataHora->dataFormatada);
+                printf("Placar: %s\n", jogos[i].placar->placarFormatado);
+            }
         }
+    printf("\n------------ FIM JOGOS ------------\n");
     }
 
 void atualizarJogo(char *id){

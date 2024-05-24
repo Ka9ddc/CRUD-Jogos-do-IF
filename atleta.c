@@ -1,26 +1,86 @@
 #include "estruturas.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-Atleta criarAtleta(){
+bool validarCPF(const char* cpf) {
+    int len = strlen(cpf);
+
+    if (len != 14){
+        printf("\nO cpf não possui o tamanho correto.\n");
+        return false;
+        }
+    
+    if (cpf[3] != '.' || cpf[7] != '.' || cpf[11] != '-'){
+        printf("\nO quarto, setimo, ou decimo primeiro digito estão errados.\n");
+        return false;
+    }
+    
+    for (int i = 0; i < 14; i++) {
+        if (i == 3 || i == 7 || i == 11) {
+            printf("\nO digito %d está corretamente colocado.\n", i);
+            continue;
+        }
+        if (!isdigit(cpf[i])) {
+            printf("\nO digito %d está errado.\n", i);
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+bool validarData(const char* data) {
+    int len = strlen(data);
+
+    if (len != 10){
+        return false;
+    }
+    
+    if (data[2] != '/' || data[5] != '/'){
+        return false;
+    }
+    
+    for (int i = 0; i < 10; i++) {
+        if (i == 2 || i == 5) {
+            continue;
+        }
+        if (!isdigit(data[i])) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+void criarAtleta(){
     if(numAtletas >= MAX_ATLETAS){
         printf("\nO numero maximo de atletas cadastrado foi alcançado.\n");
     } else {
         Atleta novoAtleta;
-        printf("Entre com o nome do atleta: ");
+        printf("\nEntre com o nome do atleta: ");
         scanf(" %[^\n]", novoAtleta.nome);
-        printf("Entre com o CPF do atleta (XXX.XXX.XXX-XX): ");
+        printf("\nEntre com o CPF do atleta (XXX.XXX.XXX-XX): ");
         scanf("%s", novoAtleta.cpf);
-        printf("Entre com o sexo do atleta (m/f): ");
+        if(!validarCPF(novoAtleta.cpf)){
+            printf("\nCPF inválido!\n");
+            return;
+        }
+        printf("\nEntre com o sexo do atleta (m/f): ");
         scanf(" %c", &novoAtleta.sexo);
-        printf("Entre com a instituição de ensino: ");
+        printf("\nEntre com a instituição de ensino: ");
         scanf(" %[^\n]", novoAtleta.instituicaoEnsino);
-        printf("Entre com a data de nascimento (DD/MM/AAAA): ");
+        printf("\nEntre com a data de nascimento (DD/MM/AAAA): ");
         scanf("%s", novoAtleta.dataNascimento);
+        if(!validarData(novoAtleta.dataNascimento)){
+            printf("\nData de nascimento inválida!\n");
+            return;
+        }
         novoAtleta.possuiEquipe = false;
 
         atletas[numAtletas++] = novoAtleta;
-        printf("Atleta cadastrado com sucesso!\n");
-    
-        return novoAtleta;
+        printf("\nAtleta cadastrado com sucesso!\n");
     }
     
 };
@@ -45,27 +105,41 @@ void exibirAtleta(char* cpf) {
 }
 
 void exibirAtletas() {
+    printf("\n------------ ATLETAS ------------\n");
     for (int i = 0; i < numAtletas; i++) {
         printf("Atleta %d: %s, %s, %c, %s, %s\n", i + 1, atletas[i].nome, atletas[i].cpf, atletas[i].sexo, atletas[i].instituicaoEnsino, atletas[i].dataNascimento);
     }
+    printf("\n------------ FIM ATLETAS ------------\n");
 }
 
 void atualizarAtleta(char* cpf) {
+    Atleta atualizarAtleta;
     int found = 0;
     for (int i = 0; i < numAtletas; i++) {
         if (strcmp(atletas[i].cpf, cpf) == 0) {
             printf("\n---FORMULARIO ATUALIZAR ATLETA---:\n");
             printf("Entre com o nome do atleta: ");
-            scanf(" %[^\n]", atletas[i].nome);
+            scanf(" %[^\n]", atualizarAtleta.nome);
             printf("Entre com o CPF do atleta (XXX.XXX.XXX-XX): ");
-            scanf("%s", atletas[i].cpf);
+            scanf("%s", atualizarAtleta.cpf);
+            if(!validarCPF(atualizarAtleta.cpf)){
+            printf("\nCPF inválido!\n");
+            return;
+            }
             printf("Entre com o sexo do atleta (m/f): ");
-            scanf(" %c", &atletas[i].sexo);
+            scanf(" %c", &atualizarAtleta.sexo);
             printf("Entre com a instituição de ensino: ");
-            scanf(" %[^\n]", atletas[i].instituicaoEnsino);
+            scanf(" %[^\n]", atualizarAtleta.instituicaoEnsino);
             printf("Entre com a data de nascimento (DD/MM/AAAA): ");
-            scanf("%s", atletas[i].dataNascimento);
+            scanf("%s", atualizarAtleta.dataNascimento);
+            if(!validarData(atualizarAtleta.dataNascimento)){
+            printf("\nData de nascimento inválida!\n");
+            return;
+            }
             found = 1;
+            
+            atletas[i] = atualizarAtleta;
+            
             printf("Atleta atualizado com sucesso!");
             break;
         }

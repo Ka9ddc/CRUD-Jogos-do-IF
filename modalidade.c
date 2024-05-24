@@ -43,10 +43,12 @@ void exibirModalidades() {
     if (numModalidades == 0) {
         printf("\nNão há modalidades cadastradas!\n");
     } else {
+        printf("\n------------ MODALIDADES ------------\n");
         for (int i = 0; i < numModalidades; i++) {
             printf("\nNome da modalidade: %s", modalidades[i].nome);
             printf("\nNumero de atletas por equipe: %d\n", modalidades[i].numAtletasPorEquipe);
         }
+        printf("\n------------ FIM MODALIDADES ------------\n");
     }
 }
 
