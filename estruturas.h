@@ -52,7 +52,7 @@ typedef struct equipe {
     char sigla[6];
     Modalidade *modalidade;
     int numAtletasEquipe;
-    Atleta **atletas;  // Ponteiro para array de ponteiros de atletas
+    Atleta **atletas;
 } Equipe;
 
 typedef struct torneio{

@@ -3,7 +3,7 @@
 #include "estruturas.h"
 
 DataHora * criarDataHora() {
-    DataHora *dataHora = malloc(sizeof(DataHora)); // Aloca memória para a estrutura
+    DataHora *dataHora = malloc(sizeof(DataHora));
     if (dataHora == NULL) {
         printf("Erro de alocação de memória.\n");
         exit(1);
@@ -22,7 +22,7 @@ DataHora * criarDataHora() {
     if (dataHora->ano < 1000 || dataHora->ano > 9999 || dataHora->mes < 1 || dataHora->mes > 12 || dataHora->dia < 1 || dataHora->dia > 31 ||
         dataHora->hora < 0 || dataHora->hora > 23 || dataHora->minuto < 0 || dataHora->minuto > 59) {
         printf("Valores fornecidos fora da especificação.\n");
-        free(dataHora); // Libera a memória alocada antes de retornar NULL
+        free(dataHora);
         return NULL;
     }
 
@@ -30,7 +30,7 @@ DataHora * criarDataHora() {
 }
 
 Placar * criarPlacar(Jogo *jogo){
-    Placar *novoPlacar = malloc(sizeof(Placar)); // Aloca memória para a estrutura
+    Placar *novoPlacar = malloc(sizeof(Placar));
     if (novoPlacar == NULL) {
         printf("Erro de alocação de memória.\n");
         exit(1);
@@ -71,7 +71,7 @@ void criarJogo() {
         Equipe *equipe1;
         Equipe *equipe2;
         DataHora *dataHora;
-        Jogo novoJogo; // Agora não é mais um ponteiro
+        Jogo novoJogo;
 
         printf("\nDigite o nome do torneio: ");
         scanf(" %[^\n]", nomeTorneio);
