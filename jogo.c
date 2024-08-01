@@ -5,7 +5,7 @@
 DataHora * criarDataHora() {
     DataHora *dataHora = malloc(sizeof(DataHora));
     if (dataHora == NULL) {
-        printf("Erro de alocação de memória.\n");
+        printf("Erro de alocacao de memória.\n");
         exit(1);
     }
 
@@ -21,7 +21,7 @@ DataHora * criarDataHora() {
 
     if (dataHora->ano < 1000 || dataHora->ano > 9999 || dataHora->mes < 1 || dataHora->mes > 12 || dataHora->dia < 1 || dataHora->dia > 31 ||
         dataHora->hora < 0 || dataHora->hora > 23 || dataHora->minuto < 0 || dataHora->minuto > 59) {
-        printf("Valores fornecidos fora da especificação.\n");
+        printf("Valores fornecidos fora da especificacao.\n");
         free(dataHora);
         return NULL;
     }
@@ -32,7 +32,7 @@ DataHora * criarDataHora() {
 Placar * criarPlacar(Jogo *jogo){
     Placar *novoPlacar = malloc(sizeof(Placar));
     if (novoPlacar == NULL) {
-        printf("Erro de alocação de memória.\n");
+        printf("Erro de alocacao de memória.\n");
         exit(1);
     }
 
@@ -63,7 +63,7 @@ void gerarId(Jogo *jogo){
 
 void criarJogo() {
     if (numJogos >= MAX_JOGOS) {
-        printf("\nO numero maximo de jogos foi alcançado!\n");
+        printf("\nO numero maximo de jogos foi alcancado!\n");
     } else {
         char nomeTorneio[TAMANHO];
         char siglaEquipe[TAMANHO];
@@ -135,7 +135,7 @@ void exibirJogo(char *id){
         }
     }
     if(!found){
-        printf("\nNão foi encontrado nenhum jogo com o id fornecido!\n");
+        printf("\nNao foi encontrado nenhum jogo com o id fornecido!\n");
     }
 }
 
@@ -226,10 +226,10 @@ void atualizarPlacar(char *id){
     int found = 0;
     for(int i = 0; i < numJogos; i++){
         if(strcmp(jogos[i].id, id) == 0){
-            printf("\n---ATUALIZAÇAO DE PLACAR---\n");
-            printf("\nDigite a pontuaçao para %s: ", jogos[i].primeiraEquipe->sigla);
+            printf("\n---ATUALIZACAO DE PLACAR---\n");
+            printf("\nDigite a pontuacao para %s: ", jogos[i].primeiraEquipe->sigla);
             scanf("%d", &jogos[i].placar->pontosTime1);
-            printf("\nDigite a pontuaçao para %s: ", jogos[i].segundaEquipe->sigla);
+            printf("\nDigite a pontuacao para %s: ", jogos[i].segundaEquipe->sigla);
             scanf("%d", &jogos[i].placar->pontosTime2);
             sprintf(jogos[i].placar->placarFormatado, "%s: %d x %s: %d",
             jogos[i].primeiraEquipe->sigla,

@@ -3,7 +3,8 @@
 void menuAtleta(){
     int opcao2;
     char cpf[20];
-    printf("Entre com uma das opcoes abaixo.\n");
+    
+    printf("\nEntre com uma das opcoes abaixo.\n");
     printf("1  - Cadastrar atleta.\n");
     printf("2  - Exibir atleta.\n");
     printf("3  - Exibir atletas.\n");
@@ -35,7 +36,7 @@ void menuAtleta(){
             deletarAtleta(cpf);
           break;
         default:
-            printf("\nOpção inválida\n");
+            printf("\nOpcao invalida\n");
           break;
     }
 }
@@ -76,7 +77,7 @@ void menuModalidade(){
             deletarModalidade(nomeModalidade);
           break;
         default:
-            printf("\nOpção inválida\n");
+            printf("\nOpcao invalida\n");
           break;
     }
 }
@@ -129,7 +130,7 @@ void menuEquipe(){
             removerAtletaEquipe(nomeEquipe);
           break;
         default:
-            printf("\nOpção inválida\n");
+            printf("\nOpcao invalida\n");
           break;
     }
 }
@@ -182,7 +183,7 @@ void menuTorneio(){
             removerEquipeTorneio(nomeTorneio);
           break;
         default:
-            printf("\nOpção inválida\n");
+            printf("\nOpcao invalida\n");
           break;
     }
 }
@@ -229,7 +230,7 @@ void menuJogo(){
             atualizarPlacar(idJogo);
           break;
         default:
-            printf("\nOpção inválida\n");
+            printf("\nOpcao invalida\n");
           break;
     }
 }

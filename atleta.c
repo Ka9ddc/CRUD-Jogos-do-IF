@@ -8,22 +8,21 @@ bool validarCPF(const char* cpf) {
     int len = strlen(cpf);
 
     if (len != 14){
-        printf("\nO cpf não possui o tamanho correto.\n");
+        printf("\nO cpf nao possui o tamanho correto.\n");
         return false;
         }
     
     if (cpf[3] != '.' || cpf[7] != '.' || cpf[11] != '-'){
-        printf("\nO quarto, setimo, ou decimo primeiro digito estão errados.\n");
+        printf("\nO CPF nao esta no formato correto\n");
         return false;
     }
     
     for (int i = 0; i < 14; i++) {
         if (i == 3 || i == 7 || i == 11) {
-            printf("\nO digito %d está corretamente colocado.\n", i);
             continue;
         }
         if (!isdigit(cpf[i])) {
-            printf("\nO digito %d está errado.\n", i);
+            printf("\nO digito %d esta errado.\n", i);
             return false;
         }
     }
@@ -56,7 +55,7 @@ bool validarData(const char* data) {
 
 void criarAtleta(){
     if(numAtletas >= MAX_ATLETAS){
-        printf("\nO numero maximo de atletas cadastrado foi alcançado.\n");
+        printf("\nO numero maximo de atletas cadastrado foi alcancado.\n");
     } else {
         Atleta novoAtleta;
         printf("\nEntre com o nome do atleta: ");
@@ -64,17 +63,17 @@ void criarAtleta(){
         printf("\nEntre com o CPF do atleta (XXX.XXX.XXX-XX): ");
         scanf("%s", novoAtleta.cpf);
         if(!validarCPF(novoAtleta.cpf)){
-            printf("\nCPF inválido!\n");
+            printf("\nCPF invalido!\n");
             return;
         }
         printf("\nEntre com o sexo do atleta (m/f): ");
         scanf(" %c", &novoAtleta.sexo);
-        printf("\nEntre com a instituição de ensino: ");
+        printf("\nEntre com a instituicao de ensino: ");
         scanf(" %[^\n]", novoAtleta.instituicaoEnsino);
         printf("\nEntre com a data de nascimento (DD/MM/AAAA): ");
         scanf("%s", novoAtleta.dataNascimento);
         if(!validarData(novoAtleta.dataNascimento)){
-            printf("\nData de nascimento inválida!\n");
+            printf("\nData de nascimento invalida!\n");
             return;
         }
         novoAtleta.possuiEquipe = false;
@@ -93,7 +92,7 @@ void exibirAtleta(char* cpf) {
             printf("Nome: %s\n", atletas[i].nome);
             printf("CPF: %s\n", atletas[i].cpf);
             printf("Sexo: %c\n", atletas[i].sexo);
-            printf("Instituição de Ensino: %s\n", atletas[i].instituicaoEnsino);
+            printf("Instituicao de Ensino: %s\n", atletas[i].instituicaoEnsino);
             printf("Data de Nascimento: %s\n", atletas[i].dataNascimento);
             found = 1;
             break;
@@ -123,17 +122,17 @@ void atualizarAtleta(char* cpf) {
             printf("Entre com o CPF do atleta (XXX.XXX.XXX-XX): ");
             scanf("%s", atualizarAtleta.cpf);
             if(!validarCPF(atualizarAtleta.cpf)){
-            printf("\nCPF inválido!\n");
+            printf("\nCPF invalido!\n");
             return;
             }
             printf("Entre com o sexo do atleta (m/f): ");
             scanf(" %c", &atualizarAtleta.sexo);
-            printf("Entre com a instituição de ensino: ");
+            printf("Entre com a instituicao de ensino: ");
             scanf(" %[^\n]", atualizarAtleta.instituicaoEnsino);
             printf("Entre com a data de nascimento (DD/MM/AAAA): ");
             scanf("%s", atualizarAtleta.dataNascimento);
             if(!validarData(atualizarAtleta.dataNascimento)){
-            printf("\nData de nascimento inválida!\n");
+            printf("\nData de nascimento invalida!\n");
             return;
             }
             found = 1;

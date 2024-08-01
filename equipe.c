@@ -4,13 +4,13 @@
 
 void criarEquipe() {
     if (numEquipes >= MAX_EQUIPES) {
-        printf("\nO número máximo de equipes foi alcançado!\n");
+        printf("\nO numero maximo de equipes foi alcancado!\n");
         return;
     }
 
     Equipe *novaEquipe = (Equipe *)malloc(sizeof(Equipe));
     if (!novaEquipe) {
-        printf("\nErro ao alocar memória para nova equipe!\n");
+        printf("\nErro ao alocar memoria para nova equipe!\n");
         return;
     }
 
@@ -25,7 +25,7 @@ void criarEquipe() {
     novaEquipe->modalidade = retornarModalidade(nomeModalidade);
 
     if (!novaEquipe->modalidade) {
-        printf("Essa modalidade não existe!\n");
+        printf("Essa modalidade nao existe!\n");
         free(novaEquipe);
         return;
     }
@@ -34,13 +34,13 @@ void criarEquipe() {
     int maxAtletasPorEquipe = novaEquipe->modalidade->numAtletasPorEquipe;
     novaEquipe->atletas = (Atleta **)malloc(maxAtletasPorEquipe * sizeof(Atleta *));
     if (!novaEquipe->atletas) {
-        printf("\nErro ao alocar memória para os atletas da equipe!\n");
+        printf("\nErro ao alocar memoria para os atletas da equipe!\n");
         free(novaEquipe);
         return;
     }
 
     for (int i = 0; i < maxAtletasPorEquipe; i++) {
-        novaEquipe->atletas[i] = NULL;  // Inicializa todos os ponteiros de atletas como NULL
+        novaEquipe->atletas[i] = NULL;
     }
 
     equipes[numEquipes++] = *novaEquipe;
@@ -112,7 +112,7 @@ void atualizarEquipe(char *sigla) {
             printf("\nDigite a modalidade da equipe: ");
             scanf(" %[^\n]", nomeModalidade);
             if(!retornarModalidade(nomeModalidade)){
-                printf("\nModalidade inválida!\n");
+                printf("\nModalidade invalida!\n");
             } else {
                 equipes[i].modalidade = retornarModalidade(nomeModalidade);
             }
@@ -138,7 +138,7 @@ void deletarEquipe(char *sigla) {
     int found = 0;
     for (int i = 0; i < numEquipes; i++) {
         if (strcmp(equipes[i].sigla, sigla) == 0) {
-            liberarEquipe(&equipes[i]);  // Libera a memória da equipe
+            liberarEquipe(&equipes[i]);
             for (int j = i; j < numEquipes - 1; j++) {
                 equipes[j] = equipes[j + 1];
             }
@@ -160,7 +160,7 @@ void adicionarAtletaEquipe(char *sigla) {
     }
 
     if (equipe->numAtletasEquipe >= equipe->modalidade->numAtletasPorEquipe) {
-        printf("\nO número máximo de atletas nessa equipe foi alcançado!\n");
+        printf("\nO número maximo de atletas nessa equipe foi alcancado!\n");
         return;
     }
 
@@ -172,9 +172,9 @@ void adicionarAtletaEquipe(char *sigla) {
     adicionarAtleta = retornarAtleta(cpf);
 
     if (!adicionarAtleta) {
-        printf("Atleta não encontrado!\n");
+        printf("Atleta nao encontrado!\n");
     } else if (adicionarAtleta->possuiEquipe) {
-        printf("Esse atleta já possui uma equipe!\n");
+        printf("Esse atleta ja possui uma equipe!\n");
     } else {
         adicionarAtleta->possuiEquipe = true;
         equipe->atletas[equipe->numAtletasEquipe++] = adicionarAtleta;

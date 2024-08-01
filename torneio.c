@@ -4,7 +4,7 @@
 
 Torneio * criarTorneio() {
     if (numTorneios >= MAX_TORNEIOS) {
-        printf("\nO numero maximo de torneios foi alcançado!\n");
+        printf("\nO numero maximo de torneios foi alcancado!\n");
         return NULL;
     }
     
@@ -16,7 +16,7 @@ Torneio * criarTorneio() {
     }
     
     for (int i = 0; i < 8; i++) {
-        novoTorneio->equipes[i] = NULL;  // Inicializa todos os ponteiros de atletas como NULL
+        novoTorneio->equipes[i] = NULL;
     }
     
     char nomeModalidade[TAMANHO];
@@ -27,7 +27,7 @@ Torneio * criarTorneio() {
     scanf(" %[^\n]", nomeModalidade);
     modalidade = retornarModalidade(nomeModalidade);
     if (!modalidade) {
-        printf("Essa modalidade não existe!");
+        printf("Essa modalidade nao existe!");
     } else {
         novoTorneio->modalidade = modalidade;
         novoTorneio->quantidadeEquipesInscritas = 0;
@@ -98,7 +98,7 @@ void atualizarTorneio(char *nome) {
             printf("\nDigite a modalidade do torneio: ");
             scanf(" %[^\n]", nomeModalidade);
             if(!retornarModalidade(nomeModalidade)){
-                printf("\nModalidade inválida!\n");
+                printf("\nModalidade invalida!\n");
             } else {
                 torneios[i].modalidade = retornarModalidade(nomeModalidade);
             }
@@ -141,7 +141,7 @@ void adicionarEquipeTorneio(char *nome) {
     }
 
     if (torneio->quantidadeEquipesInscritas >= torneio->maxEquipes) {
-        printf("\nO numero maximo de equipes nesse torneio foi alcançado!\n");
+        printf("\nO numero maximo de equipes nesse torneio foi alcancado!\n");
     } else {
         char sigla[TAMANHO];
         Equipe *adicionarEquipe;
@@ -149,7 +149,7 @@ void adicionarEquipeTorneio(char *nome) {
         scanf(" %[^\n]", sigla);
         adicionarEquipe = retornarEquipe(sigla);
         if (!adicionarEquipe) {
-            printf("Equipe não encontrada!");
+            printf("Equipe nao encontrada!");
         } else {
             torneio->equipes[torneio->quantidadeEquipesInscritas++] = adicionarEquipe;
             printf("Equipe adicionada a equipe com sucesso!");

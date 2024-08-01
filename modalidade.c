@@ -3,7 +3,7 @@
 
 Modalidade *criarModalidade() {
     if (numModalidades >= MAX_MODALIDADES) {
-        printf("O numero maximo de modalidades foi alcançado!");
+        printf("O numero maximo de modalidades foi alcancado!");
         return NULL;
     }
 
@@ -41,7 +41,7 @@ void exibirModalidade(char *nome) {
 
 void exibirModalidades() {
     if (numModalidades == 0) {
-        printf("\nNão há modalidades cadastradas!\n");
+        printf("\nNao ha modalidades cadastradas!\n");
     } else {
         printf("\n------------ MODALIDADES ------------\n");
         for (int i = 0; i < numModalidades; i++) {
@@ -66,6 +66,7 @@ void atualizarModalidade(char *nome) {
     }
     printf("Nenhuma modalidade com esse nome foi encontrada!");
 }
+
 
 void deletarModalidade(char *nome) {
     int found = 0;
